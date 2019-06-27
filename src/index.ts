@@ -5,11 +5,11 @@ import { Iterator } from './iterator';
 const TARGET_OBJ_NAME = 'envInjectorTargetObj';
 
 export interface TargetObjectType {
-  [key : string] : string | number | boolean;
+  [key : string] : any;
 }
 
-export function envInjectorTargetObj (object : TargetObjectType) {
-
+export function envInjectorTargetObj<T extends TargetObjectType> (object : T) : T {
+  return object;
 }
 
 export function injectEnvs (fileName : string, debug = false) {
