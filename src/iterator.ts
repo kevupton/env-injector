@@ -180,7 +180,9 @@ export class Iterator {
     this.ENV_VALUE = envValue(key);
     this.ENV_DEPTH = this['{}'];
 
-    console.log('KEY', key, this.ENV_DEPTH, this.ENV_VALUE);
+    if (this.debug) {
+      console.log('KEY', key, this.ENV_DEPTH, this.ENV_VALUE);
+    }
 
     this.recording = RecordingType.Value;
   }
@@ -199,7 +201,9 @@ export class Iterator {
     const whitespace  = matches[0];
     const replacement = ` ${ JSON.stringify(this.ENV_VALUE) }${ whitespace }`;
 
-    console.log('PERFORMING REPLACEMENT', replacement, this.value);
+    if (this.debug) {
+      console.log('PERFORMING REPLACEMENT', replacement, this.value);
+    }
 
     // Perform the replacement of the string
     this.string = this.string.slice(
