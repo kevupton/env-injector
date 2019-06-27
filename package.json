@@ -7,11 +7,13 @@
   "author": "Kevin Upton",
   "license": "MIT",
   "scripts": {
-    "build": "tsc"
+    "build": "rimraf dist && webpack",
+    "prepublish": "yarn build"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.135",
     "@types/node": "^12.0.10",
+    "rimraf": "^2.6.3",
     "ts-loader": "^6.0.4",
     "ts-node": "^8.3.0",
     "typescript": "^3.5.2",

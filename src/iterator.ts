@@ -85,9 +85,19 @@ export class Iterator {
     this.index++;
   }
 
+  private resetHandler() {
+    this.key = '';
+    this.value = '';
+    this.recording = RecordingType.Key;
+    this.valueStartIndex = 0;
+  }
+
   private handleCharCases (char : string) {
     switch (char) {
       case '{':
+        if (!this.hasEnv) {
+          this.resetHandler();
+        }
         this['{}']++;
         break;
       case '}':
@@ -125,18 +135,14 @@ export class Iterator {
   }
 
   private attemptCompleteValue () {
-    const canReplace = this.hasEnv && this.equalEnvDepth;
-
-    if (canReplace) {
+    if (this.hasEnv && this.equalEnvDepth) {
       this.value = this.value.slice(0, -1);
       this.performReplacement();
+      this.resetHandler();
     }
 
-    if (!this.hasEnv || canReplace) {
-      this.recording       = RecordingType.Key;
-      this.value           = '';
-      this.valueStartIndex = 0;
-      this.key             = '';
+    if (!this.hasEnv) {
+      this.resetHandler();
     }
   }
 
