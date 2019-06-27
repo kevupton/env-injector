@@ -17,12 +17,11 @@ export function injectEnvs (fileName : string, debug = false) {
     if (string[index] !== '(') {
       index++;
       if (string[index] !== '(') {
-        throw new Error('Please call the function directly: envInjectorTargetObj({})')
+        continue;
       }
     }
     const iterator = new Iterator(string, index, debug);
     string = iterator.replace();
-    index++; // so that we dont iterate over the same object
   }
 
   fs.writeFileSync(builtFile, string);
