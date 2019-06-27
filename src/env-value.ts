@@ -22,7 +22,7 @@ export function envValue (key : string, defaultValue? : any) {
   else if (lval === 'null') {
     return null;
   }
-  else if (isFinite(lval)) {
+  else if (!isNaN(lval as any)) {
     return Number(lval);
   }
   return value;
