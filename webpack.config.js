@@ -21,7 +21,7 @@ const path = require('path');
  *
  */
 
-module.exports = {
+const config = {
   module: {
     rules: [
       {
@@ -64,8 +64,6 @@ module.exports = {
 
   mode: 'production',
 
-  target: 'node',
-
   entry: './src/index.ts',
 
   output: {
@@ -74,3 +72,17 @@ module.exports = {
     libraryTarget: 'commonjs2',
   },
 };
+
+module.exports = [
+  config,
+  {
+    ...config,
+    target: 'node',
+    entry: './src/inject-envs.ts',
+
+    output: {
+      ...config.output,
+      filename: 'inject-envs.js',
+    }
+  }
+];
