@@ -90,10 +90,10 @@ export class Iterator {
     this.index++;
   }
 
-  private resetHandler() {
-    this.key = '';
-    this.value = '';
-    this.recording = RecordingType.Key;
+  private resetHandler () {
+    this.key             = '';
+    this.value           = '';
+    this.recording       = RecordingType.Key;
     this.valueStartIndex = 0;
   }
 
@@ -192,14 +192,14 @@ export class Iterator {
       return;
     }
 
-    const matches = /[\s\n]*$/.exec(this.value);
+    const endspace   = /[\s\n]*$/.exec(this.value);
+    const startspace = /^[\s\n]*/.exec(this.value);
 
-    if (!matches) {
+    if (!endspace || !startspace) {
       throw new Error('No matches found');
     }
 
-    const whitespace  = matches[0];
-    const replacement = ` ${ JSON.stringify(this.ENV_VALUE) }${ whitespace }`;
+    const replacement = `${ startspace[0] }${ JSON.stringify(this.ENV_VALUE) }${ endspace[0] }`;
 
     if (this.debug) {
       console.log('PERFORMING REPLACEMENT', replacement, this.value);
