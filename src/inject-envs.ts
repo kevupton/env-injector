@@ -31,7 +31,7 @@ function writeFile(fileName : string, debug : boolean) {
     string = iterator.replace();
   }
 
-  const re = /\[__(\S+)__]/g;
+  const re = /\[__(\S+?)__]/g;
   let match;
 
   while ((match = re.exec(string))) {
