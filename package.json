@@ -1,8 +1,9 @@
 {
   "name": "env-injector",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Injects environment variables into compiles javascript files. Useful for Dockerfile configurations",
   "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
   "repository": "https://github.com/kevupton/env-injector",
   "author": "Kevin Upton",
   "license": "MIT",
