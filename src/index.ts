@@ -8,4 +8,5 @@ export function envInjectorTargetObj<T extends TargetObjectType> (object : T) : 
 }
 
 /* Placeholder Object */
-export const INJECT_NEXT_OBJECT = null;
+export function injectNextObject () {
+}

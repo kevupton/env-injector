@@ -3,7 +3,7 @@ import * as path from "path";
 import { Iterator } from './iterator';
 
 const TARGET_OBJ_NAME = 'envInjectorTargetObj';
-const NEXT_OBJ_NAME = 'INJECT_NEXT_OBJECT';
+const NEXT_OBJ_NAME = 'injectNextObject';
 
 export function injectEnvs (fileName : string, debug = false) {
   const builtFile = path.join(process.cwd(), fileName);
