@@ -1,11 +1,16 @@
 import * as fs from "fs";
 import * as path from "path";
+import { envValue } from './env-value';
 import { Iterator } from './iterator';
 
 const TARGET_OBJ_NAME = 'envInjectorTargetObj';
 const NEXT_OBJ_NAME = 'injectNextObject';
 
-export function injectEnvs (fileName : string, debug = false) {
+export function injectEnvs (fileNames : string, debug = false) {
+  fileNames.split(';').forEach(fileName => writeFile(fileName, debug));
+}
+
+function writeFile(fileName, debug) {
   const builtFile = path.join(process.cwd(), fileName);
 
   const fileContent = fs.readFileSync(builtFile, 'utf-8');
@@ -24,6 +29,19 @@ export function injectEnvs (fileName : string, debug = false) {
     index += NEXT_OBJ_NAME.length;
     const iterator = new Iterator(string, index, debug);
     string = iterator.replace();
+  }
+
+  const re = /\[__(\S+)__]/g;
+  let match;
+
+  while ((match = re.exec(string))) {
+    const envVar = match[1];
+    const pattern = new RegExp('\\[__' + envVar + '__]', 'g');
+    const value = envValue(envVar);
+
+    if (value) {
+      string = string.replace(pattern, `${value}`);
+    }
   }
 
   fs.writeFileSync(builtFile, string);
