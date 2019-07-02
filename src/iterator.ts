@@ -14,6 +14,7 @@ export class Iterator {
   private '\'\''          = false;
   private index           = 0;
   private valueStartIndex = 0;
+  private started         = false;
 
   private ENV_VALUE? : any;
   private ENV_DEPTH = 0;
@@ -36,7 +37,7 @@ export class Iterator {
   }
 
   get isComplete () {
-    return !this['()'] && !this['[]'] && !this['{}'] && !this['""'] && !this['\'\''];
+    return this.started && !this['{}'];
   }
 
   get insideString () {
@@ -103,6 +104,7 @@ export class Iterator {
         if (!this.hasEnv) {
           this.resetHandler();
         }
+        this.started = true;
         this['{}']++;
         break;
       case '}':

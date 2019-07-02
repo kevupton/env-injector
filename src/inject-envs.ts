@@ -3,6 +3,7 @@ import * as path from "path";
 import { Iterator } from './iterator';
 
 const TARGET_OBJ_NAME = 'envInjectorTargetObj';
+const NEXT_OBJ_NAME = 'INJECT_NEXT_OBJECT';
 
 export function injectEnvs (fileName : string, debug = false) {
   const builtFile = path.join(process.cwd(), fileName);
@@ -14,12 +15,13 @@ export function injectEnvs (fileName : string, debug = false) {
 
   while ((index = string.indexOf(TARGET_OBJ_NAME, index)) !== -1) {
     index += TARGET_OBJ_NAME.length;
-    if (string[index] !== '(') {
-      index++;
-      if (string[index] !== '(') {
-        continue;
-      }
-    }
+    const iterator = new Iterator(string, index, debug);
+    string = iterator.replace();
+  }
+
+  index = 0;
+  while ((index = string.indexOf(NEXT_OBJ_NAME, index)) !== -1) {
+    index += NEXT_OBJ_NAME.length;
     const iterator = new Iterator(string, index, debug);
     string = iterator.replace();
   }
