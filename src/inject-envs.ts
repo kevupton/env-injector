@@ -10,7 +10,7 @@ export function injectEnvs (fileNames : string, debug = false) {
   fileNames.split(';').forEach(fileName => writeFile(fileName, debug));
 }
 
-function writeFile(fileName, debug) {
+function writeFile(fileName : string, debug : boolean) {
   const builtFile = path.join(process.cwd(), fileName);
 
   const fileContent = fs.readFileSync(builtFile, 'utf-8');
