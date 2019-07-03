@@ -38,13 +38,13 @@ function writeFile(fileName : string, debug : boolean) {
     const envVar = match[1];
     const pattern = new RegExp('\\[__' + envVar + '__]', 'g');
     const value = envValue(envVar);
-	
+
     if (debug) {
-      console.log('Attempt to replace', envVar, pattern, value);
+      console.log('Attempting to replace', envVar, pattern, value);
     }
     if (value) {
       if (debug) {
-        console.log('replacing');
+        console.log('Performing Replacement');
       }
       string = string.replace(pattern, `${value}`);
     }
