@@ -31,7 +31,7 @@ function writeFile(fileName : string, debug : boolean) {
     string = iterator.replace();
   }
 
-  const re = /\[__(\S+)__]/g;
+  const re = /\[__(\S+?)__]/g;
   let match;
 
   while ((match = re.exec(string))) {
@@ -39,7 +39,13 @@ function writeFile(fileName : string, debug : boolean) {
     const pattern = new RegExp('\\[__' + envVar + '__]', 'g');
     const value = envValue(envVar);
 
+    if (debug) {
+      console.log('Attempting to replace', envVar, pattern, value);
+    }
     if (value) {
+      if (debug) {
+        console.log('Performing Replacement');
+      }
       string = string.replace(pattern, `${value}`);
     }
   }
