@@ -7,7 +7,7 @@ const TARGET_OBJ_NAME = 'envInjectorTargetObj';
 const NEXT_OBJ_NAME = 'injectNextObject';
 
 export function injectEnvs (fileNames : string, debug = false) {
-  fileNames.split(';').forEach(fileName => writeFile(fileName, debug));
+  fileNames.replace(/[\s\n]+/, ';').split(';').forEach(fileName => writeFile(fileName, debug));
 }
 
 function writeFile(fileName : string, debug : boolean) {
